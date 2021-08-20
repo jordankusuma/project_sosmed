@@ -61,7 +61,17 @@ describe Posts do
                 expect(@post.save).to eq(false)
             end
         end
+        context 'when attachment is nil' do 
+            it 'should create posts and return id_post' do 
+                query = "insert into posts (user_id, post_text, attachment) values (#{@post_attach_nil.user_id}, '#{@post_attach_nil.post_text}', '#{@post_attach_nil.attachment}')"
+                query1 = "SELECT * FROM posts WHERE id = 1"
 
+                expect(@stub_client).to receive(:query).with(query)                
+                allow(@stub_client).to receive(:last_id).and_return(1)
+
+                expect(@post_attach_nil.save).to eq(@post_attach_nil.id)
+            end
+        end
     end 
 
 
