@@ -9,6 +9,21 @@ class Hashtags
         @quantity = params[:quantity]
     end
 
+    def save_hashtags
+        client = create_db_client 
+        existing = client.query("select * from hashtags where name = '#{@name}'")
+    
+        data = existing.first
+        client.query("insert into hashtags (name, quantity) values ('#{@name}', 0)") if data.nil?
+
+        response = client.query("select * from hashtags where name = '#{@name}'")
+        hash = response.first 
+
+        hashtag = Hashtags.new({id: hash["id"], name: hash["name"], quantity: hash["quantity"]})
+        return false unless hashtag.valid?
+        true
+    end
+
     def self.get_hashtag(params)
         params.downcase.scan(/#(\w+)/).flatten.uniq
     end

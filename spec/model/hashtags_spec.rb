@@ -38,11 +38,11 @@ describe Hashtags do
             end
         end
         context 'when hashtag is not new' do
-            it 'create new hashtag' do
+            it 'return true' do
                 query = "select * from hashtags where name = 'aku'"
                 expect(@stub_client).to receive(:query).with(query).and_return([@response])               
                 expect(@stub_client).to receive(:query).with(query).and_return([@response])               
-                @hashtag.save_hashtags
+                expect(@hashtag.save_hashtags).to eq(true)
             end
         end
     end
