@@ -10,13 +10,14 @@ class Users
     @bio = params[:bio]
   end
 
-  #create new account
+  # create new account
   def register
-    client = create_db_client 
+    client = create_db_client
     return false unless valid?
+
     client.query("INSERT INTO users VALUES (0, '#{@username}', '#{@email}', '#{@bio}')")
-    
-    id_new = client.last_id()
+
+    id_new = client.last_id
     response = client.query("SELECT * FROM users WHERE id = #{id_new}")
 
     data = response
