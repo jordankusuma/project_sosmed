@@ -61,6 +61,17 @@ describe Comments do
                 expect(@comment.save).to eq(false)
             end
         end
+        context 'when attachment is nil' do 
+            it 'should create comments and return id_comment' do 
+                query = "insert into comments (post_id, user_id, comments_text, attachment) values (#{@comments_attach_nil.post_id}, #{@comments_attach_nil.user_id}, '#{@comments_attach_nil.comments_text}', '#{@comments_attach_nil.attachment}')"
+                query1 = "SELECT * FROM comments WHERE id = 1"
+
+                expect(@stub_client).to receive(:query).with(query)                
+                allow(@stub_client).to receive(:last_id).and_return(1)
+
+                expect(@comments_attach_nil.save).to eq(@comments_attach_nil.id)
+            end
+        end
     end
 
     describe 'get_all_comments' do 
