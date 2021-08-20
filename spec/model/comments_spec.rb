@@ -55,6 +55,12 @@ describe Comments do
                 expect(@comment.save).to eq(@comment.id)
             end
         end
+        context 'when input is not valid' do 
+            it 'should return false' do 
+                @comment = Comments.new({id: 1, comments_text: "jo"})             
+                expect(@comment.save).to eq(false)
+            end
+        end
     end
 
     describe 'get_all_comments' do 
