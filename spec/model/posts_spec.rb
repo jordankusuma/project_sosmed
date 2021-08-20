@@ -44,6 +44,21 @@ describe Posts do
         end
     end
 
+    describe 'save' do 
+        context 'when input is valid' do 
+            it 'should create posts and return id_post' do 
+                query = "insert into posts (user_id, post_text, attachment) values (#{@post.user_id}, '#{@post.post_text}', '#{@post.attachment}')"
+    
+                expect(@stub_client).to receive(:query).with(query)                
+                allow(@stub_client).to receive(:last_id).and_return(1)
+
+                expect(@post.save).to eq(@post.id)
+            end
+        end
+    end 
+
+
+
     describe 'get_post_by_hashtag' do 
         context 'when there are posts based on hashtags' do 
             it 'return posts and status 200' do 
