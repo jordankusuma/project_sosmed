@@ -37,7 +37,7 @@ describe Comments do
         context 'when there are no comments within 24 hours' do 
             it 'return nil' do 
                 query = "select * from comments where date > now() - interval 24 hour"
-                expect(@stub_client).to receive(:query).with(query).and_return(@comments)
+                expect(@stub_client).to receive(:query).with(query).and_return(nil)
                 get_comments = Comments.get_comment_by_time
                 expect(get_comments).to eq(false)
             end
