@@ -55,6 +55,13 @@ describe Posts do
                 expect(@post.save).to eq(@post.id)
             end
         end
+        context 'when input is not valid' do 
+            it 'should return false' do 
+                @post = Posts.new({id: 1, text: "jo"})             
+                expect(@post.save).to eq(false)
+            end
+        end
+
     end 
 
 
