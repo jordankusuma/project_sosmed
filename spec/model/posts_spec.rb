@@ -25,6 +25,29 @@ describe Posts do
         end 
     end
 
+    describe 'get_post_by_hashtag' do 
+        context 'when there are posts based on hashtags' do 
+            it 'return posts and status 200' do 
+                query = "select posts.id, posts.user_id, posts.date, posts.post_text, posts.attachment from posts join posts_hashtag on posts.id = posts_hashtag.post_id join hashtags on posts_hashtag.hashtag_id = hashtags.id where hashtags.name = '#hola'"
+                hash = Hash.new 
+                post = Array.new 
+                @posts.each do |data|
+                    hash = {:id => data["id"], :user_id => data["user_id"], :date => data["date"], :post_text => data["post_text"], :attachment => data["attachment"]}
+                    post << hash
+                end
+                expect(@stub_client).to receive(:query).with(query).and_return(post)
+                get_posts = Posts.get_post_by_hashtag('#hola')
+                result = 
+                {
+                    'status' => 200,
+                    'message' => 'Success',
+                    'data' => post
+                }
+                expect(get_posts).to eq(result)
+            end
+        end
+    end
+
     describe 'valid?' do
         context 'validation' do 
             it 'return true if valid' do 
