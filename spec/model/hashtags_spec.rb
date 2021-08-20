@@ -65,6 +65,15 @@ describe Hashtags do
         end
     end
 
+    describe 'get_hashtag' do 
+        context 'when params text available' do
+            it 'return array of hashtag' do
+                hash = ["aku"]
+                expect(Hashtags.get_hashtag("#aku")).to eq(hash)
+            end
+        end
+    end
+
     describe 'valid?' do 
         context 'validation' do 
             it 'return true if valid' do 
