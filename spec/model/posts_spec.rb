@@ -24,4 +24,12 @@ describe Posts do
             end
         end 
     end
+
+    describe 'valid?' do
+        context 'validation' do 
+            it 'return true if valid' do 
+                expect(@post.valid?).to eq(true)
+            end
+        end 
+    end
 end 
