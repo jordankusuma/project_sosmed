@@ -30,6 +30,15 @@ describe Hashtags do
                 expect(@hashtag.valid?).to eq(true)
             end
         end 
-        
+        context 'when not valid' do
+            it 'return false when name is nil' do
+                @hashtag = Hashtags.new({id: 1, name: nil, quantity: 0})
+                expect(@hashtag.valid?).to eq(false)
+            end
+            it 'return false when quantity is nil' do
+                @hashtag = Hashtags.new({id: 1, name: 'aku', quantity: nil})
+                expect(@hashtag.valid?).to eq(false)
+            end
+        end
     end
 end
