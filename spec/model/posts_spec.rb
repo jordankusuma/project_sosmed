@@ -36,8 +36,8 @@ describe Posts do
         end
         context 'when there are no posts within 24 hours' do 
             it 'return false' do 
-                query = "select * from posts where date > now() - interval 24 hour"
-                expect(@stub_client).to receive(:query).with(query).and_return(nil)
+                query1 = "select * from posts where date > now() - interval 24 hour"
+                expect(@stub_client).to receive(:query).with(query1).and_return(nil)
                 get_posts = Posts.get_post_by_time
                 expect(get_posts).to eq(false)
             end
