@@ -31,5 +31,19 @@ describe Comments do
                 expect(@comment.valid?).to eq(true)
             end
         end 
+        context 'when not valid' do
+            it 'return false when post_id is nil' do
+                @comment = Comments.new({id: 1, post_id: nil, comments_text: "saya", attachment: "a.png", user_id: 1, date: '2021-08-17 17:04:54'})
+                expect(@comment.valid?).to eq(false)
+            end
+            it 'return false when user_id is nil' do
+                @comment = Comments.new({id: 1, post_id: 2, comments_text: "saya", attachment: "a.png", users: nil, date: '2021-08-17 17:04:54'})
+                expect(@comment.valid?).to eq(false)
+            end
+            it 'return false when text is nil' do
+                @comment = Comments.new({id: 1, post_id: 2, comments_text: nil, attachment: "a.png", user_id: 1, date: '2021-08-17 17:04:54'})
+                expect(@comment.valid?).to eq(false)
+            end
+        end
     end
 end
