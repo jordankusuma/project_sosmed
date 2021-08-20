@@ -12,7 +12,10 @@ describe Users do
             it 'return true when valid' do
                 expect(@user.valid?).to eq(true)
             end
+            it 'return false when not valid' do
+                @user = Users.new({id: 0, username: "jo"})
+                expect(@user.valid?).to eq(false)
+            end
         end 
-
     end
 end 
