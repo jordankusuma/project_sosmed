@@ -24,6 +24,21 @@ describe Hashtags do
         end 
     end
 
+    describe 'save_hashtags' do 
+        context 'when hashtag is new' do
+            it 'create new hashtag' do
+                query = "select * from hashtags where name = '#{@hashtag.name}'"
+                query1 = "insert into hashtags (name, quantity) values ('#{@hashtag.name}', #{@hashtag.quantity})"
+            
+                expect(@stub_client).to receive(:query).with(query).and_return([@response])               
+                expect(@stub_client).to receive(:query).with(query).and_return([@response])               
+                expect(@stub_client).to receive(:query).with(query1)
+
+                expect(@hashtag.save_hashtags).to eq(true)
+            end
+        end
+    end
+
     describe 'save_postshashtag' do 
         context 'when params valid' do
             it 'save into posts_hashtag' do
