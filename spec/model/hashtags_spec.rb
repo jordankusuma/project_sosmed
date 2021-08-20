@@ -52,6 +52,19 @@ describe Hashtags do
         end
     end
 
+    describe 'update_hashtag' do 
+        context 'when hashtag available' do
+            it 'save into comments_hashtag' do
+                query = "select * from hashtags where name = '#{@hashtag.name}'"
+                query1 = "update hashtags set quantity = quantity + 1 where name = '#{@hashtag.name}'"
+                expect(@stub_client).to receive(:query).with(query).and_return([@response])               
+                expect(@stub_client).to receive(:query).with(query1)
+
+                @hashtag.update_hashtag
+            end
+        end
+    end
+
     describe 'valid?' do 
         context 'validation' do 
             it 'return true if valid' do 
