@@ -17,9 +17,6 @@ class Users
     client.query("INSERT INTO users VALUES (0, '#{@username}', '#{@email}', '#{@bio}')")
     
     id_new = client.last_id()
-    response = client.query("SELECT * FROM users WHERE id = #{id_new}")
-
-    data = response
     id_new
   end
 
