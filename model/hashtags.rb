@@ -27,6 +27,14 @@ class Hashtags
         true
     end
 
+    def update_hashtag 
+        client = create_db_client
+        existing = client.query("select * from hashtags where name = '#{@name}'")
+    
+        data = existing.first
+        client.query("update hashtags set quantity = quantity + 1 where name = '#{@name}'") unless data.nil?
+    end
+
     def valid?
         return false if @name.nil? || @quantity.nil?
         true
