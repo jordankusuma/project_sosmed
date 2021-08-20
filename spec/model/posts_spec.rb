@@ -74,7 +74,16 @@ describe Posts do
         end
     end 
 
+    describe 'get_post' do
+        context 'when there are posts' do 
+            it 'return posts' do 
+                query = "SELECT * FROM posts WHERE id = 1"
+                expect(@stub_client).to receive(:query).with(query).and_return([@response])               
 
+                Posts.get_post(1)
+            end
+        end
+    end
 
     describe 'get_post_by_hashtag' do 
         context 'when there are posts based on hashtags' do 
