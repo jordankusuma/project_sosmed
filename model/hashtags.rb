@@ -9,6 +9,24 @@ class Hashtags
         @quantity = params[:quantity]
     end
 
+    def save_postshashtag(posts_id)
+        client = create_db_client 
+        rawData = client.query("select * from hashtags where name = '#{@name}'")
+        data = rawData.first
+
+        client.query("insert into posts_hashtag values (#{posts_id}, #{data["id"]})")
+        true
+    end
+
+    def save_commentshashtag(comments_id)
+        client = create_db_client 
+        rawData = client.query("select * from hashtags where name = '#{@name}'")
+        data = rawData.first
+
+        client.query("insert into comments_hashtag values (#{comments_id}, #{data["id"]})")
+        true
+    end
+
     def valid?
         return false if @name.nil? || @quantity.nil?
         true
