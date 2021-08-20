@@ -23,6 +23,14 @@ class Posts
         id_new
     end 
 
+    def self.get_post(id_new)
+        client = create_db_client
+        rawData = client.query("SELECT * FROM posts WHERE id = #{id_new}")
+        data = rawData.first
+        post = Posts.new({id: id_new, post_text: data['post_text'], attachment: data['attachment'], user_id: data['user_id'], date: data['date']})
+        post
+    end
+
     #get posts interval 24 hours
     def self.get_post_by_time
         client = create_db_client 
