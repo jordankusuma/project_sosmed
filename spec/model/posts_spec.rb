@@ -18,6 +18,10 @@ describe Posts do
             it 'return true when valid' do
                 expect(@post.valid?).to eq(true)
             end
+            it 'return false when not valid' do
+                @post = Posts.new({id: 1, post_text: "saya"})
+                expect(@post.valid?).to eq(false)
+            end
         end 
     end
 end 
