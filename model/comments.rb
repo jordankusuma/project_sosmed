@@ -25,6 +25,14 @@ class Comments
         id_new
     end 
 
+    def self.get_comment(id_new)
+        client = create_db_client
+        rawData = client.query("SELECT * FROM comments WHERE id = #{id_new}")
+        data = rawData.first
+        comment = Comments.new({id: id_new, post_id: data['post_id'], comments_text: data['comments_text'], attachment: data['attachment'], user_id: data['user_id'], date: data['date']})
+        comment
+    end
+
     def self.get_all_comments(posts)
         client = create_db_client 
         rawData = client.query("select * from comments where post_id = #{posts}")
