@@ -99,4 +99,27 @@ describe Hashtags do
             expect(Hashtags.reset_quantity).to eq(true)
         end
     end
+
+    describe 'get_trending_hashtag' do 
+        context 'when there are posts on 24 hours' do 
+            it 'return hashtags and status 200' do 
+                query = "select * from hashtags order by quantity desc limit 5"
+                hash = Hash.new 
+                hashtag = Array.new 
+                @hashtags.each do |data|
+                    hash = {:id => data["id"], :name => data["name"], :quantity => data["quantity"]}
+                    hashtag << hash
+                end
+                expect(@stub_client).to receive(:query).with(query).and_return(hashtag)
+                get_hashtags = Hashtags.get_trending_hashtag
+                result = 
+                {
+                    'status' => 200,
+                    'message' => 'Success',
+                    'data' => hashtag
+                }
+                expect(get_hashtags).to eq(result)
+            end
+        end
+    end
 end
