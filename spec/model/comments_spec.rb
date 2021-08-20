@@ -74,6 +74,17 @@ describe Comments do
         end
     end
 
+    describe 'get_comment' do
+        context 'when there are comments' do 
+            it 'return comments' do 
+                query = "SELECT * FROM comments WHERE id = 1"
+                expect(@stub_client).to receive(:query).with(query).and_return([@response])               
+
+                Comments.get_comment(1)
+            end
+        end
+    end
+
     describe 'get_all_comments' do 
         context 'when there are comments in post' do 
             it 'return comments and status 200' do 
