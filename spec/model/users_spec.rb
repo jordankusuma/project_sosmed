@@ -29,6 +29,10 @@ describe Users do
                 expect(@stub_client).to receive(:query).with(query1).and_return([@response]) 
                 expect(@user.register).to eq(@user.id)     
             end
+            it 'should not register when not valid' do
+                @user = Users.new({id: 0, username: "jo"})             
+                expect(@user.register).to eq(false)
+            end
         end 
     end
 
