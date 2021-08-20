@@ -24,4 +24,12 @@ describe Comments do
             end
         end
     end 
+
+    describe 'valid?' do
+        context 'validation' do 
+            it 'return true if valid' do 
+                expect(@comment.valid?).to eq(true)
+            end
+        end 
+    end
 end
