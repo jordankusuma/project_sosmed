@@ -44,6 +44,19 @@ describe Comments do
         end
     end 
 
+    describe 'save' do 
+        context 'when input is valid' do 
+            it 'should create comments and return id_comment' do 
+                query = "insert into comments (post_id, user_id, comments_text, attachment) values (#{@comment.post_id}, #{@comment.user_id}, '#{@comment.comments_text}', '#{@comment.attachment}')"
+    
+                expect(@stub_client).to receive(:query).with(query)                
+                allow(@stub_client).to receive(:last_id).and_return(1)
+
+                expect(@comment.save).to eq(@comment.id)
+            end
+        end
+    end
+
     describe 'get_all_comments' do 
         context 'when there are comments in post' do 
             it 'return comments and status 200' do 
