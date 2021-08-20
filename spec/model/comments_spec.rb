@@ -18,7 +18,10 @@ describe Comments do
             it 'return true when valid' do
                 expect(@comment.valid?).to eq(true)
             end
-
+            it 'return false when not valid' do
+                @comment = Comments.new({id: 1, comments_text: "saya"})
+                expect(@comment.valid?).to eq(false)
+            end
         end
     end 
 end
