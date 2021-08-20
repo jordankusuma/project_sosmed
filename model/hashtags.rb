@@ -9,6 +9,10 @@ class Hashtags
         @quantity = params[:quantity]
     end
 
+    def self.get_hashtag(params)
+        params.downcase.scan(/#(\w+)/).flatten.uniq
+    end
+
     def save_postshashtag(posts_id)
         client = create_db_client 
         rawData = client.query("select * from hashtags where name = '#{@name}'")
