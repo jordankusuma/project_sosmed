@@ -41,4 +41,12 @@ describe Hashtags do
             end
         end
     end
+
+    describe 'reset_quantity' do 
+        it 'reset all hashtag quantity' do
+            query = "update hashtags set quantity = 0"
+            expect(@stub_client).to receive(:query).with(query)
+            expect(Hashtags.reset_quantity).to eq(true)
+        end
+    end
 end
