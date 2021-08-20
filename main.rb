@@ -16,4 +16,16 @@ namespace '/api/v1' do
   before do
     content_type :json
   end
+
+  #Users
+  #register
+  post '/users/register' do
+    body = getBody(request)
+    controller = UserController.new
+		object = controller.register(body)
+    object.to_json
+  end
+  #End Users
+
+  
 end
