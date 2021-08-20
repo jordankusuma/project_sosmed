@@ -19,6 +19,19 @@ describe Users do
         end 
     end
 
+    describe 'register' do
+        context 'when register' do 
+            it 'should register when valid' do
+                query = "INSERT INTO users VALUES (0, '#{@user.username}', '#{@user.email}', '#{@user.bio}')"
+                query1 = "SELECT * FROM users WHERE id = #{@user.id}"
+                expect(@stub_client).to receive(:query).with(query)                
+                allow(@stub_client).to receive(:last_id).and_return(@user.id)
+                expect(@stub_client).to receive(:query).with(query1).and_return([@response]) 
+                expect(@user.register).to eq(@user.id)     
+            end
+        end 
+    end
+
     describe 'valid?' do
         context 'validation' do 
             it 'return true if valid' do 
