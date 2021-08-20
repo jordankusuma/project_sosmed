@@ -13,6 +13,22 @@ class Posts
         @date = params[:date]
     end
 
+    #get posts interval 24 hours
+    def self.get_post_by_time
+        client = create_db_client 
+        rawData = client.query("select * from posts where date > now() - interval 24 hour")
+        if (rawData.nil?)
+            false 
+        else 
+            posts = Array.new 
+            rawData.each do |data|
+                post = Posts.new({id: data["id"], user_id: data["user_id"], date: data["date"], post_text: data["post_text"], attachment: data["attachment"]})
+                posts.push(post)
+            end
+            posts
+        end
+    end
+
     #filter hashtag to get all posts 
     def self.get_post_by_hashtag(params)
         client = create_db_client 
