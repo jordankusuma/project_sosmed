@@ -42,6 +42,29 @@ describe Comments do
                 expect(get_comments).to eq(false)
             end
         end
+    end 
+
+    describe 'get_all_comments' do 
+        context 'when there are comments in post' do 
+            it 'return comments and status 200' do 
+                query = "select * from comments where post_id = 2"
+                hash = Hash.new 
+                comment = Array.new 
+                @comments.each do |data|
+                    hash = {:id => data["id"], :post_id => data['post_id'], :user_id => data["user_id"], :date => data["date"], :comments_text => data["post_text"], :attachment => data["attachment"]}
+                    comment << hash
+                end
+                expect(@stub_client).to receive(:query).with(query).and_return(comment)
+                get_comments = Comments.get_all_comments(2)
+                result = 
+                {
+                    'status' => 200,
+                    'message' => 'Success',
+                    'data' => comment
+                }
+                expect(get_comments).to eq(result)
+            end
+        end
     end
 
     describe 'valid?' do
