@@ -30,6 +30,16 @@ describe Posts do
             it 'return true if valid' do 
                 expect(@post.valid?).to eq(true)
             end
+            context 'when not valid' do
+                it 'return false when user_id is nil' do
+                    @post = Posts.new({id: 1, text: "saya", attachment: "a.png", users: nil, hashtag: "[#hola]", date: '2021-08-17 17:04:54'})
+                    expect(@post.valid?).to eq(false)
+                end
+                it 'return false when text is nil' do
+                    @post = Posts.new({id: 1, text: nil, attachment: "a.png", users: 1, hashtag: "[#hola]", date: '2021-08-17 17:04:54'})
+                    expect(@post.valid?).to eq(false)
+                end
+            end
         end 
     end
 end 
