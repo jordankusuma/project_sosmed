@@ -17,6 +17,10 @@ describe Hashtags do
             it 'return true when valid' do
                 expect(@hashtag.valid?).to eq(true)
             end
+            it 'return false when not valid' do
+                @hashtag = Hashtags.new({id: 1, name: "aku"})
+                expect(@hashtag.valid?).to eq(false)
+            end
         end 
-
     end
+end
