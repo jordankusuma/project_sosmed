@@ -121,5 +121,19 @@ describe Hashtags do
                 expect(get_hashtags).to eq(result)
             end
         end
+        context 'when no posts on 24 hours' do 
+            it 'return status 404' do 
+                query = "select * from hashtags order by quantity desc limit 5"
+                hashtag = Array.new
+                result = 
+                {
+                    'status' => 404,
+                    'message' => 'Not found post/comments in 24 hours'
+                }
+                expect(@stub_client).to receive(:query).with(query).and_return(hashtag)
+                get_hashtags = Hashtags.get_trending_hashtag
+                expect(get_hashtags).to eq(result)
+            end
+        end
     end
 end
