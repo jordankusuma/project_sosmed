@@ -38,6 +38,20 @@ describe Hashtags do
         end
     end
 
+    describe 'save_commentshashtag' do 
+        context 'when params valid' do
+            it 'save into comments_hashtag' do
+                query1 = "select * from hashtags where name = 'aku'"
+                query = "insert into comments_hashtag values (2, 1)"
+                
+                expect(@stub_client).to receive(:query).with(query)               
+                expect(@stub_client).to receive(:query).with(query1).and_return([@response])   
+                
+                expect(@hashtag.save_commentshashtag(2)).to eq(true)
+            end
+        end
+    end
+
     describe 'valid?' do 
         context 'validation' do 
             it 'return true if valid' do 
