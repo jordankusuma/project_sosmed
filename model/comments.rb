@@ -15,6 +15,29 @@ class Comments
         @date = params[:date]
     end
 
+    def self.get_all_comments(posts)
+        client = create_db_client 
+        rawData = client.query("select * from comments where post_id = #{posts}")
+        comments = Array.new 
+        hash = Hash.new
+        rawData.each do |data|
+            hash = {:id => data['id'], :post_id => data['post_id'], :user_id => data['user_id'], :date => data['date'], :comments_text => data['comments_text'], :attachment => data["attachment"]}
+            comments << hash
+        end
+        if (!comments.empty?)
+            {
+                'status' => 200,
+                'message' => 'Success',
+                'data' => comments
+            }
+        else 
+            {
+                'status' => 404,
+                'message' => 'Not found comments based on post_id',
+            }
+        end
+    end
+
     #get posts interval 24 hours
     def self.get_comment_by_time
         client = create_db_client 
