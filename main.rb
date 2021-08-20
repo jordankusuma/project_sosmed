@@ -72,4 +72,19 @@ namespace '/api/v1' do
     object.to_json
   end
   # end comments
+
+  #hashtags
+  #filter trending hashtags
+  get '/hashtags' do
+    post_controller = PostController.new 
+    posts = post_controller.get_post_based_time
+    
+    comment_controller = CommentController.new 
+    comments = comment_controller.get_comment_based_time
+
+    controller = HashtagController.new
+    object = controller.get_trending_hashtag(posts, comments)
+    object.to_json
+  end 
+  #end hashtags
 end
