@@ -13,6 +13,16 @@ class Posts
         @date = params[:date]
     end
 
+    #add posts 
+    def save
+        client = create_db_client 
+        return false unless valid?
+        client.query("insert into posts (user_id, post_text, attachment) values (#{@user_id}, '#{@post_text}', '#{@attachment}')")
+
+        id_new = client.last_id()
+        id_new
+    end 
+
     #get posts interval 24 hours
     def self.get_post_by_time
         client = create_db_client 
