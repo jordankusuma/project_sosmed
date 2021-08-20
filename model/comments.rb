@@ -15,6 +15,16 @@ class Comments
         @date = params[:date]
     end
 
+    #add posts 
+    def save
+        client = create_db_client 
+        return false unless valid?
+        client.query("insert into comments (post_id, user_id, comments_text, attachment) values (#{@post_id}, #{@user_id}, '#{@comments_text}', '#{@attachment}')")
+
+        id_new = client.last_id()
+        id_new
+    end 
+
     def self.get_all_comments(posts)
         client = create_db_client 
         rawData = client.query("select * from comments where post_id = #{posts}")
