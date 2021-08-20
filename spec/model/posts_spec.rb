@@ -25,6 +25,17 @@ describe Posts do
         end 
     end
 
+    describe 'get_post_by_time' do 
+        context 'when there are posts within 24 hours' do 
+            it 'return posts based on time' do 
+                query = "select * from posts where date > now() - interval 24 hour"
+                expect(@stub_client).to receive(:query).with(query).and_return(@posts)
+                get_posts = Posts.get_post_by_time
+                expect(get_posts).not_to be_nil
+            end
+        end
+    end
+
     describe 'get_post_by_hashtag' do 
         context 'when there are posts based on hashtags' do 
             it 'return posts and status 200' do 
