@@ -65,6 +65,20 @@ describe Comments do
                 expect(get_comments).to eq(result)
             end
         end
+        context 'when no comments on post' do 
+            it 'return status 404' do 
+                query = "select * from comments where post_id = 2"
+                comment = Array.new
+                result = 
+                {
+                    'status' => 404,
+                    'message' => 'Not found comments based on post_id'
+                }
+                expect(@stub_client).to receive(:query).with(query).and_return(comment)
+                get_comments = Comments.get_all_comments(2)
+                expect(get_comments).to eq(result)
+            end
+        end
     end
 
     describe 'valid?' do
