@@ -51,4 +51,25 @@ namespace '/api/v1' do
     object.to_json
   end
   # end posts
+  
+  #comments
+  post '/posts/{post_id}/comments/new' do
+    @filename = params['files']['filename']
+    file = params['files']['tempfile']
+
+    File.open("./uploadsComments/#{@filename}", 'w') do |f|
+      f.write(file.read)
+    end
+
+    controller = CommentController.new
+		object = controller.save(params, @filename)
+    object.to_json
+  end
+
+  get '/posts/{id}/comments' do 
+    controller = CommentController.new
+		object = controller.get_comments(params["id"].to_i)
+    object.to_json
+  end
+  #end comments
 end
