@@ -25,5 +25,15 @@ describe Users do
                 expect(@user.valid?).to eq(true)
             end
         end
+        context 'when not valid' do
+            it 'return false when username is nil' do
+                @users = Users.new({id: 0, username: nil, email: 'a@gmail.com', bio: 'Saya'})
+                expect(@users.valid?).to eq(false)
+            end
+            it 'return false when email is nil' do
+                @users = Users.new({id: 0, username: 'jo', email: nil, bio: 'Saya'})
+                expect(@users.valid?).to eq(false)
+            end
+        end
     end
 end 
