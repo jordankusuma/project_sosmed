@@ -25,6 +25,17 @@ describe Comments do
         end
     end 
 
+    describe 'get_comment_by_time' do 
+        context 'when there are comments within 24 hours' do 
+            it 'return comments based on time' do 
+                query = "select * from comments where date > now() - interval 24 hour"
+                expect(@stub_client).to receive(:query).with(query).and_return(@comments)
+                get_comments = Comments.get_comment_by_time
+                expect(get_comments).not_to be_nil
+            end
+        end
+    end
+
     describe 'valid?' do
         context 'validation' do 
             it 'return true if valid' do 
