@@ -35,6 +35,10 @@ Commit types:
 ### Postman API Doc
 1. Go check this link for JSON export [here](https://www.postman.com/collections/1ff4ca59a4ae3bed6acc) or check collection file [this link](https://github.com/jordankusuma/project_sosmed/blob/main/project_sosmed.postman_collection.json)
 
+### Schema Design
+
+![alt text](https://github.com/jordankusuma/project_sosmed/blob/main/twitter.jpg)
+
 ### Production Link
 You can access here the production on [Production Link](http://34.131.29.50:4567/api/v1)
 
