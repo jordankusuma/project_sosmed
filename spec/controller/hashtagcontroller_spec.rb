@@ -54,9 +54,9 @@ describe CommentController do
         end
         context 'when params is nil' do 
             it 'return false' do 
-                expect(@controller).to receive(:get_post).with(nil).and_return(false)
-                
-                expected_result = @controller.get_post(nil)
+                expect(@controller).to receive(:get_comment).with(nil).and_return(false)
+               
+                expected_result = @controller.get_comment(nil)
                 expect(expected_result).to eq(false)
             end
         end
