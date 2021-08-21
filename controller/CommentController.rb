@@ -9,5 +9,8 @@ class CommentController
         comment unless comment.nil?
     end
 
-    
+    def get_comment_based_time
+        comments = Comments.get_comment_by_time
+        comments unless comments.nil?
+    end
 end
