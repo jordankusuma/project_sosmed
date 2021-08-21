@@ -62,4 +62,37 @@ describe CommentController do
             end
         end
     end
+    describe 'save' do 
+        context 'when params is valid' do 
+            it 'create posts and return 200' do 
+                params = 
+                {
+                    'files' => "a.png",
+                    'text' => 'saya #aku',
+                    'user_id' => 1,
+                    'post_id' => 1
+                }
+                data = 
+                {
+                    'status' => 200,
+                    'message' => 'Success',
+                    'data' => @response
+                }
+                allow(Hashtags).to receive(:get_hashtag).with(params['text']).and_return(@hash)
+
+                allow(Comments).to receive(:new).and_return(@stub_client)
+                allow(@stub_client).to receive(:save).and_return(1)
+
+                allow(Comments).to receive(:get_comment).with(1).and_return(@comments)
+
+                stub_hashtag = double()
+                allow(Hashtags).to receive(:new).and_return(stub_hashtag)
+                allow(stub_hashtag).to receive(:save_hashtags)
+                allow(stub_hashtag).to receive(:save_commentshashtag).with(1)
+
+                expected_result = @controller.save(params, "a.png")
+                expect(expected_result).to eq(data)
+            end
+        end 
+    end
 end
