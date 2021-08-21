@@ -44,5 +44,14 @@ describe PostController do
             end
         end
     end 
+    describe 'get_post_based_time' do 
+        context 'when posts not nil' do 
+            it 'return posts' do 
+                allow(Posts).to receive(:get_post_by_time).and_return(@arr)
+                expect(@controller).to receive(:get_post_based_time).and_return(@arr)
 
+                @controller.get_post_based_time
+            end
+        end
+    end
 end
