@@ -27,14 +27,18 @@ describe Hashtags do
   describe 'save_hashtags' do
     context 'when hashtag is new' do
       it 'create new hashtag' do
-        query = "select * from hashtags where name = '#{@hashtag.name}'"
-        query1 = "insert into hashtags (name, quantity) values ('#{@hashtag.name}', #{@hashtag.quantity})"
+          query = "insert into hashtags (name, quantity) values ('aku', 0)"
+          query_get = "select * from hashtags where name = 'aku'"
 
-        expect(@stub_client).to receive(:query).with(query).and_return([@response])
-        expect(@stub_client).to receive(:query).with(query).and_return([@response])
-        expect(@stub_client).to receive(:query).with(query1)
-
-        expect(@hashtag.save_hashtags).to eq(true)
+          expect(@stub_client).to receive(:query).with(query_get).and_return([])
+          expect(@stub_client).to receive(:query).with(query)
+          expect(@stub_client).to receive(:query).with(query_get).and_return([@response])
+          
+          allow(Hashtags).to receive(:new).and_return(@stub_client)
+          expect(@stub_client).to receive(:valid?).and_return(true)
+      
+          result = @hashtag.save_hashtags
+          expect(result).to eq(true)
       end
     end
     context 'when hashtag is not new' do
