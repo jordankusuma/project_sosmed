@@ -23,4 +23,16 @@ describe CommentController do
             end
         end
     end
+
+    describe 'get_post' do 
+        context 'when params not nil' do 
+            it 'return data' do 
+                expect(@controller).to receive(:get_post).with(@posts).and_return(@text)
+                
+                expected_result = @controller.get_post(@posts)
+                expect(expected_result).to eq(@text)
+            end
+        end
+        
+    end
 end 
