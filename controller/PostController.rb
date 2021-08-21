@@ -7,4 +7,9 @@ class PostController
         posts = Posts.get_post_by_hashtag(params)
         posts
     end
+
+    def get_post_based_time
+        posts = Posts.get_post_by_time
+        posts unless posts.nil?
+    end
 end
