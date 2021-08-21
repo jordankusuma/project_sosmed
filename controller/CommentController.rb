@@ -6,8 +6,8 @@ require './model/comments'
 class CommentController
   def save(params, filename)
     arr_hashtag = Hashtags.get_hashtag(params['text'])
-    comments = Comments.new({ "id": 0, "post": params['post_id'], "text": params['text'], "attachment": filename,
-                              "users": params['user_id'], "hashtag": arr_hashtag })
+    comments = Comments.new({ "id": 0, "post_id": params['post_id'], "comments_text": params['text'], "attachment": filename,
+                              "user_id": params['user_id'], "hashtag": arr_hashtag })
     result = comments.save
 
     if result == false
@@ -47,6 +47,6 @@ class CommentController
 
   def get_comment_based_time
     comments = Comments.get_comment_by_time
-    comments unless comments.nil?
+    comments
   end
 end

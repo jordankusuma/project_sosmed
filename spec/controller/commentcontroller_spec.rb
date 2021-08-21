@@ -6,7 +6,7 @@ describe CommentController do
     @controller = CommentController.new
     @comments = Comments.new({ "id": 1, "post_id": 1, "comments_text": 'saya #aku', "attachment": 'a.png',
                                "user_id": 1, "hashtag": ['aku'] })
-    @arr = [Comments.new({ "id": 1, "comments_text": 'saya #aku', "attachment": 'a.png', "user_id": 1,
+    @arr = [Comments.new({ "id": 1, "post_id": 1, "comments_text": 'saya #aku', "attachment": 'a.png', "user_id": 1,
                            "hashtag": ['aku'] })]
     @response = { 'id' => 1, 'post_id' => 1, 'comments_text' => 'saya #aku', 'attachment' => 'a.png',
                   'user_id' => 1, 'date' => nil, 'hashtag' => ['aku'] }
@@ -53,17 +53,15 @@ describe CommentController do
     context 'when comments not nil' do
       it 'return comments' do
         allow(Comments).to receive(:get_comment_by_time).and_return(@arr)
-        expect(@controller).to receive(:get_comment_based_time).and_return(@arr)
-
-        @controller.get_comment_based_time
+        result = @controller.get_comment_based_time 
+        expect(result).to eq(@arr)
       end
     end
     context 'when comments nil' do
       it 'return false' do
-        allow(Comments).to receive(:get_comment_by_time).and_return(nil)
-        expect(@controller).to receive(:get_comment_based_time).and_return(false)
-
-        @controller.get_comment_based_time
+        allow(Comments).to receive(:get_comment_by_time).and_return(false)
+        result = @controller.get_comment_based_time 
+        expect(result).to eq(false)
       end
     end
   end

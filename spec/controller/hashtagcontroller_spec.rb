@@ -1,6 +1,6 @@
 require_relative '../../controller/HashtagController'
 
-describe CommentController do
+describe HashtagController do
   before :each do
     @stub_client = double
     @controller = HashtagController.new
@@ -34,21 +34,6 @@ describe CommentController do
         expect(expected_result).to eq(data)
       end
     end
-    context 'when text nil' do
-      it 'return status 404' do
-        expect(@controller).to receive(:get_post).with(nil).and_return(false)
-        expect(@controller).to receive(:get_comment).with(nil).and_return(false)
-
-        data =
-          {
-            'status' => 404,
-            'message' => 'Not found post/comments in 24 hours'
-          }
-
-        expected_result = @controller.get_trending_hashtag(nil, nil)
-        expect(expected_result).to eq(data)
-      end
-    end
   end
 
   describe 'update_quantity' do
@@ -73,9 +58,9 @@ describe CommentController do
     end
     context 'when params is nil' do
       it 'return false' do
-        expect(@controller).to receive(:get_post).with(nil).and_return(false)
+        expect(@controller).to receive(:get_post).with([]).and_return(false)
 
-        expected_result = @controller.get_post(nil)
+        expected_result = @controller.get_post([])
         expect(expected_result).to eq(false)
       end
     end
