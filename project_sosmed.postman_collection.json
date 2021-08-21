@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "e3b54017-5b01-4741-8042-8cbdbc6aa075",
+		"name": "project_twitter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "user save",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"marcell\",\r\n    \"email\":\"marcell@gmail.com\",\r\n    \"bio\" : \"saya anak indo\"\r\n}"
+						},
+						"url": {
+							"raw": "http://34.131.29.50:4567/api/v1/users/register",
+							"protocol": "http",
+							"host": [
+								"34",
+								"131",
+								"29",
+								"50"
+							],
+							"port": "4567",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Add Posts",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/E:/foto/Food/gigih.png"
+								},
+								{
+									"key": "text",
+									"value": "halo semangat #generasi #gigih #indonesia",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://34.131.29.50:4567/api/v1/posts/new",
+							"protocol": "http",
+							"host": [
+								"34",
+								"131",
+								"29",
+								"50"
+							],
+							"port": "4567",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"new"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hashtags",
+			"item": [
+				{
+					"name": "Filter post based on hashtag name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://34.131.29.50:4567/api/v1/posts/hashtags/GIGIH",
+							"protocol": "http",
+							"host": [
+								"34",
+								"131",
+								"29",
+								"50"
+							],
+							"port": "4567",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"hashtags",
+								"GIGIH"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get trending hashtags",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://34.131.29.50:4567/api/v1/hashtags",
+							"protocol": "http",
+							"host": [
+								"34",
+								"131",
+								"29",
+								"50"
+							],
+							"port": "4567",
+							"path": [
+								"api",
+								"v1",
+								"hashtags"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Add comment on post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "/E:/foto/Food/resto2.jpg"
+								},
+								{
+									"key": "text",
+									"value": "Visualize how I can enable #letsdothis? Whenever I can, I am going to finish it #generasigigih #frontend",
+									"type": "text"
+								},
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://34.131.29.50:4567/api/v1/posts/3/comments/new",
+							"protocol": "http",
+							"host": [
+								"34",
+								"131",
+								"29",
+								"50"
+							],
+							"port": "4567",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"3",
+								"comments",
+								"new"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all comments by post id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://34.131.29.50:4567/api/v1/posts/3/comments",
+							"protocol": "http",
+							"host": [
+								"34",
+								"131",
+								"29",
+								"50"
+							],
+							"port": "4567",
+							"path": [
+								"api",
+								"v1",
+								"posts",
+								"3",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
