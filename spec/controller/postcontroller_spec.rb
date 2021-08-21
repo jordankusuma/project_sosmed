@@ -51,17 +51,15 @@ describe PostController do
     context 'when posts not nil' do
       it 'return posts' do
         allow(Posts).to receive(:get_post_by_time).and_return(@arr)
-        expect(@controller).to receive(:get_post_based_time).and_return(@arr)
-
-        @controller.get_post_based_time
+        result = @controller.get_post_based_time 
+        expect(result).to eq(@arr)
       end
     end
     context 'when posts nil' do
       it 'return false' do
-        allow(Posts).to receive(:get_post_by_time).and_return(nil)
-        expect(@controller).to receive(:get_post_based_time).and_return(false)
-
-        @controller.get_post_based_time
+        allow(Posts).to receive(:get_post_by_time).and_return(false)
+        result = @controller.get_post_based_time 
+        expect(result).to eq(false)
       end
     end
   end
