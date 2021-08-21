@@ -94,6 +94,26 @@ describe PostController do
                 expect(expected_result).to eq(data)
             end
         end
-        
+        context 'when params is not valid' do
+            it 'return status 500' do
+                params = 
+                {
+                    'files' => "a.png",
+                    'user_id' => 1
+                }
+                data = 
+                {
+                    'status' => 500,
+                    'message' => 'Error',
+                }
+                allow(Hashtags).to receive(:get_hashtag).with(params['text']).and_return(@hash)
+
+                allow(Posts).to receive(:new).and_return(@stub_client)
+                allow(@stub_client).to receive(:save).and_return(false)
+
+                expected_result = @controller.save(params, "a.png")
+                expect(expected_result).to eq(data)
+            end
+        end
     end
 end
