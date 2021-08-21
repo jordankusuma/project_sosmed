@@ -31,7 +31,21 @@ describe CommentController do
                 expect(expected_result).to eq(data)
             end
         end 
-        
+        context 'when text nil' do 
+            it 'return status 404' do 
+                expect(@controller).to receive(:get_post).with(nil).and_return(false)
+                expect(@controller).to receive(:get_comment).with(nil).and_return(false)
+                
+                data = 
+                {
+                    'status' => 404,
+                    'message' => 'Not found post/comments in 24 hours'
+                }
+
+                expected_result = @controller.get_trending_hashtag(nil, nil)
+                expect(expected_result).to eq(data)
+            end
+        end
     end
 
     describe 'update_quantity' do 
