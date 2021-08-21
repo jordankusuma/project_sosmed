@@ -25,13 +25,24 @@ describe PostController do
 
                 allow(Posts).to receive(:get_post_by_hashtag).with(params).and_return(data)
 
-                result = Posts.get_post_by_hashtag(params)
+                result = @controller.get_post_by_hash(params)
                 expect(result).to eq(data)
-
-                @controller.get_post_by_hash(params)
             end
         end 
+        context 'when params hashtag not valid' do 
+            it 'return status 404' do 
+                params = nil
+                data = 
+                {
+                    'status' => 404,
+                    'message' => 'Not found Post Based on hashtags name'
+                }
+                allow(Posts).to receive(:get_post_by_hashtag).with(params).and_return(data)
 
+                result = @controller.get_post_by_hash(params)
+                expect(result).to eq(data)
+            end
+        end
     end 
 
 end
