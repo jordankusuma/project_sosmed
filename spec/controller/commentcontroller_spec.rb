@@ -25,7 +25,7 @@ describe CommentController do
 
                 allow(Comments).to receive(:get_all_comments).with(params).and_return(data)
 
-                result = @controller.get_all_comments(params)
+                result = @controller.get_comments(params)
                 expect(result).to eq(data)
             end
         end
@@ -39,7 +39,7 @@ describe CommentController do
                 }
                 allow(Comments).to receive(:get_all_comments).with(params).and_return(data)
 
-                result = @controller.get_all_comments(params)
+                result = @controller.get_comments(params)
                 expect(result).to eq(data)
             end
         end
