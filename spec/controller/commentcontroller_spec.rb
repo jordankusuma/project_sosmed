@@ -44,5 +44,22 @@ describe CommentController do
             end
         end
     end 
+    describe 'get_comment_based_time' do 
+        context 'when comments not nil' do 
+            it 'return comments' do 
+                allow(Comments).to receive(:get_comment_by_time).and_return(@arr)
+                expect(@controller).to receive(:get_comment_based_time).and_return(@arr)
 
+                @controller.get_comment_based_time
+            end
+        end
+        context 'when comments nil' do 
+            it 'return false' do 
+                allow(Comments).to receive(:get_comment_by_time).and_return(nil)
+                expect(@controller).to receive(:get_comment_based_time).and_return(false)
+
+                @controller.get_comment_based_time
+            end
+        end
+    end
 end
