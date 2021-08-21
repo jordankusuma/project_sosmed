@@ -42,4 +42,16 @@ describe CommentController do
             end
         end
     end
+
+    describe 'get_comment' do 
+        context 'when params not nil' do 
+            it 'return data' do 
+                expect(@controller).to receive(:get_comment).with(@comments).and_return(@text)
+        
+                expected_result = @controller.get_comment(@comments)
+                expect(expected_result).to eq(@text)
+            end
+        end
+        
+    end
 end 
