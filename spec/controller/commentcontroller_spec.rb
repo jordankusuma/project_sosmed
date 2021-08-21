@@ -13,8 +13,8 @@ describe CommentController do
     end
 
     describe 'get_comments' do 
-        context 'when params hashtag valid' do 
-            it 'return post' do 
+        context 'when params post_id valid' do 
+            it 'return all comments' do 
                 params = "aku"
                 data = 
                 {
@@ -25,13 +25,24 @@ describe CommentController do
 
                 allow(Comments).to receive(:get_all_comments).with(params).and_return(data)
 
-                result = Comments.get_all_comments(params)
+                result = @controller.get_all_comments(params)
                 expect(result).to eq(data)
-
-                @controller.get_comments(params)
             end
         end
-        
+        context 'when params post_id not valid' do 
+            it 'return false' do 
+                params = nil
+                data = 
+                {
+                    'status' => 404,
+                    'message' => 'Not found comments based on post_id'
+                }
+                allow(Comments).to receive(:get_all_comments).with(params).and_return(data)
+
+                result = @controller.get_all_comments(params)
+                expect(result).to eq(data)
+            end
+        end
     end 
 
 end
