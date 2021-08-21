@@ -13,6 +13,27 @@ describe CommentController do
         @response = {'id' => 1, "name" => "aku", "quantity" => '0'}
     end
 
+    describe 'get_trending_hashtag' do 
+        context 'when text available' do 
+            it 'return trending hashtags and status 200' do 
+                allow(Hashtags).to receive(:reset_quantity)
+
+                data = 
+                {
+                    'status' => 200,
+                    'message' => 'Success',
+                    'data' => @response
+                }
+
+                allow(Hashtags).to receive(:get_trending_hashtag).and_return(data)
+                
+                expected_result = @controller.get_trending_hashtag(@posts_arr, @comments_arr)
+                expect(expected_result).to eq(data)
+            end
+        end 
+        
+    end
+
     describe 'update_quantity' do 
         context 'when text is valid' do 
             it 'update hashtags' do 
