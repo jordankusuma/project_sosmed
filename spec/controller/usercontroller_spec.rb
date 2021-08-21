@@ -35,6 +35,28 @@ describe UserController do
                 result = @controller.register(params)
                 expect(result).to eq(response)
             end 
-        end 
+        end
+        context 'when register return false' do
+            it 'shows status 500' do
+                params = 
+                {
+                    "username": "jo",
+                    "email": nil,
+                    "bio": "saya"
+                }
+                
+                response = 
+                {
+                    'status' => 500,
+                    'message' => 'Users not valid'
+                }   
+
+                allow(Users).to receive(:new).and_return(@stub_client)
+                expect(@stub_client).to receive(:register).and_return(false)
+
+                result = @controller.register(params)
+                expect(result).to eq(response)
+            end 
+        end
     end
 end
