@@ -62,4 +62,38 @@ describe PostController do
             end
         end
     end
+
+    describe 'save' do 
+        context 'when params is valid' do 
+            it 'create posts and return 200' do 
+                params = 
+                {
+                    'files' => "a.png",
+                    'text' => 'saya #aku',
+                    'user_id' => 1
+                }
+                data = 
+                {
+                    'status' => 200,
+                    'message' => 'Success',
+                    'data' => @response
+                }
+                allow(Hashtags).to receive(:get_hashtag).with(params['text']).and_return(@hash)
+
+                allow(Posts).to receive(:new).and_return(@stub_client)
+                allow(@stub_client).to receive(:save).and_return(1)
+
+                allow(Posts).to receive(:get_post).with(1).and_return(@posts)
+
+                stub_hashtag = double()
+                allow(Hashtags).to receive(:new).and_return(stub_hashtag)
+                allow(stub_hashtag).to receive(:save_hashtags)
+                allow(stub_hashtag).to receive(:save_postshashtag).with(1)
+
+                expected_result = @controller.save(params, "a.png")
+                expect(expected_result).to eq(data)
+            end
+        end
+        
+    end
 end
